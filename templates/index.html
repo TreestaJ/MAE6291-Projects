@@ -1,0 +1,159 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulsePilot Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ffd6e8, #fff0f6);
+            color: #4a2140;
+        }
+
+        .container {
+ width: 85%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 18px rgba(200, 80, 130, 0.15);
+            border: 2px solid #ffd3e2;
+        }
+
+        h1 {
+            color: #c03a7a;
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .metric {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .LOW {
+            background: #ffe2ea;
+            color: #b4235f;
+        }
+
+        .GOAL {
+            background: #ffeccf;
+            color: #9f6800;
+        }
+
+        .GREAT {
+            background: #e3f8eb;
+            color: #207245;
+        }
+
+        .tip-box {
+            background: #fff1f7;
+            border-left: 5px solid #d94d8a;
+            padding: 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+        }
+
+        table {
+            width: 100%;
+border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #f1d3df;
+            text-align: left;
+        }
+
+        th {
+            background: #ffe3ef;
+            color: #8b2f5b;
+        }
+
+        tr:nth-child(even) {
+            background: #fff7fa;
+        }
+
+        .subtle {
+            color: #7a5d6c;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="card">
+            <h1>PulsePilot Dashboard</h1>
+            <p class="subtle">
+                Latest Apple Health date: {{ data.latest_date }}
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Weekly Step Summary</h2>
+
+            <div class="metric">
+                {{ data.average_steps }} steps/day
+            </div>
+
+            <div class="status {{ data.status }}">
+                {{ data.status }}
+            </div>
+
+            <p>{{ data.recommendation }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Workout Recommendation</h2>
+
+            <div class="tip-box">
+                {{ data.workout_tip }}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Daily Step Breakdown</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Steps</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in data.daily_data %}
+                    <tr>
+                        <td>{{ row.date }}</td>
+                        <td>{{ row.steps }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
